@@ -1,5 +1,5 @@
 <template>
-    <div @click="$emit('hide')" class="product-item-container">
+    <div @click="$emit('showDialog',productInfo)" class="product-item-container">
         <span class="add-icon">+</span>
         <div class="item-header">
             <h2>{{productInfo.name}}</h2>
@@ -8,7 +8,7 @@
         <p>{{productInfo.description}}</p>
         <div class="choices">
             Choice of:
-            <span v-for="choice in productInfo.choiceOf" :key="choice">{{choice}}</span>
+            <span v-for="(choices,option) in productInfo.choiceOf" :key="option">{{option}}</span>
         </div>
         <span class="price">{{productInfo.price}}€</span>
 
@@ -17,7 +17,7 @@
 <script>
 export default {
     props:["productInfo"],
-    emits:["hide"]
+    emits:["showDialog"]
 }
 </script>
 <style scoped>
@@ -52,6 +52,8 @@ export default {
         cursor: pointer;
         transition: all 100ms ease;
         position: relative;
+        width: 600px;
+       
     
     }
 
