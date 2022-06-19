@@ -1,5 +1,5 @@
 <template>
-    <section class="restaurants-list">
+    <section class="restaurants-list" >
         <nuxt-link class="nuxt-link"  v-for="restaurant in restaurants" :key="restaurant.name" :to="'/' +  restaurant.name">
         <RestaurantItem :restaurantInfo="restaurant" />
         </nuxt-link>
@@ -33,7 +33,7 @@ export default{
                     deliveryCost: "10"
                 },
                
-            ]
+            ],
         };
     },
     components: { RestaurantItem }
@@ -44,5 +44,9 @@ export default{
     a{
         text-decoration: none;
         color: unset;
+    }
+
+    .activeClass{
+        color: red;
     }
 </style>

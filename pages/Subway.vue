@@ -1,19 +1,28 @@
 <template>
     <main>
         <MainHeader/>
-        <h1>Subway</h1>
+        <ProductsList/>
     </main>
 </template>
 
 <script>
 import MainHeader from "../components/MainHeader.vue";
+import ProductsList from "../components/ProductsList.vue";
 
 export default{
-    components: {MainHeader}
+    components: { MainHeader, ProductsList }
 }
 
 </script>
 
 <style scoped>
+
+main{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 
 </style>
