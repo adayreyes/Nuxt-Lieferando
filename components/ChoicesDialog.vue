@@ -12,10 +12,10 @@
             <span>{{ productInfo.description }}</span>
         </div>
         <div class="select-container">
-            <div v-for="choices, option in productInfo.choiceOf" :key="option">
-                <span>Select your {{ option }}</span>
-                <select :name="option" :id="option">
-                    <option v-for="choice in choices" :key="choice" :value="choice">{{ choice }}</option>
+            <div v-for="(values, key) in productInfo.choiceOf" :key="key">
+                <span>Select your {{ key }}</span>
+                <select :name="key" :id="key" :ref="key">
+                    <option v-for="choice in values" :key="choice" :value="choice">{{ choice }}</option>
                 </select>
             </div>
         </div>
@@ -25,7 +25,7 @@
                 <span class="quantity">{{ quantity }}</span>
                 <span @click="increaseQuantity">+</span>
             </div>
-            <span class="price">{{ total }}€</span>
+            <span @click="sendToCart" class="price">{{ total }}€</span>
         </footer>
     </div>
 </template>
@@ -34,7 +34,10 @@ export default {
     data() {
         return {
             quantity: 1,
-            total: this.productInfo.price
+            total: this.productInfo.price,
+            meat: "",
+            topping: "",
+
         }
     },
     props: ["productInfo"],
@@ -51,7 +54,11 @@ export default {
                 this.total = (this.productInfo.price * this.quantity).toFixed(2)
 
             }
-        }
+        },
+        sendToCart(){
+            console.log("meat: " + this.$refs.meat[0].value, "topping: " + this.$refs.topping[0].value);
+        },
+
     },
     emits: ["closeDialog"]
 }
@@ -118,7 +125,7 @@ header {
 
 footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -151,8 +158,15 @@ footer {
 }
 
 .price {
-    color: var(--orange);
+    color: white;
     font-weight: bold;
     font-size: 1.2rem;
+    background-color: var(--blue);
+    padding: .5rem;
+    border-radius: 10px;
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
+
 }
 </style>

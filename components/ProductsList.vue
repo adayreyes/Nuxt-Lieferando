@@ -21,7 +21,7 @@ export default {
                     description: "2 Subs 30cm nach Wahl",
                     choiceOf: {
                         meat: ["Chicken", "Pan", "Salat"],
-                        toppings: ["cheese","ketchup"],
+                        topping: ["cheese","ketchup"],
                         },
                     price: 17.99,
                 
@@ -31,7 +31,7 @@ export default {
                     description: "mit würzigen Hähnchenbruststreifen in Teriyaki-Marinade",
                     choiceOf: {
                         meat: ["Chicken", "Pig", "Cow"],
-                        toppings: ["mayo","alioli"],
+                        topping: ["mayo","alioli"],
                         },
                     price: 9.99
                 },
