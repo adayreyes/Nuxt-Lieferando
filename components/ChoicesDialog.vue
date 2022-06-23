@@ -22,10 +22,10 @@
         <footer>
             <div class="counter-container">
                 <span @click="reduceQuantity">-</span>
-                <span class="quantity">{{ quantity }}</span>
+                <span class="quantity">{{ orderInfo.quantity }}</span>
                 <span @click="increaseQuantity">+</span>
             </div>
-            <span @click="sendToCart" class="price">{{ total }}€</span>
+            <span @click="sendToCart" class="price">{{ orderInfo.total }}€</span>
         </footer>
     </div>
 </template>
@@ -33,34 +33,38 @@
 export default {
     data() {
         return {
-            quantity: 1,
-            total: this.productInfo.price,
-            meat: "",
-            topping: "",
-
+            orderInfo: {
+                name: this.productInfo.name,
+                quantity: 1,
+                total: this.productInfo.price,
+                meat: "",
+                topping: "",
+            }
         }
     },
     props: ["productInfo"],
     methods: {
         reduceQuantity() {
-            if (this.quantity > 1) {
-                this.quantity--
-                this.total = (this.productInfo.price * this.quantity).toFixed(2)
+            if (this.orderInfo.quantity > 1) {
+                this.orderInfo.quantity--
+                this.orderInfo.total = (this.productInfo.price * this.orderInfo.quantity).toFixed(2)
             }
         },
         increaseQuantity() {
-            if (this.quantity < 30) {
-                this.quantity++
-                this.total = (this.productInfo.price * this.quantity).toFixed(2)
+            if (this.orderInfo.quantity < 30) {
+                this.orderInfo.quantity++
+                this.orderInfo.total = (this.productInfo.price * this.orderInfo.quantity).toFixed(2)
 
             }
         },
         sendToCart(){
-            console.log("meat: " + this.$refs.meat[0].value, "topping: " + this.$refs.topping[0].value);
+            this.orderInfo.meat = this.$refs.meat[0].value;
+            this.orderInfo.topping = this.$refs.topping[0].value;
+            this.$emit("send",this.orderInfo)
         },
 
     },
-    emits: ["closeDialog"]
+    emits: ["closeDialog","send"]
 }
 
 </script>

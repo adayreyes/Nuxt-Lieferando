@@ -1,8 +1,9 @@
 <template>
     <section class="products-list" :class="itemSelected && 'hide'">
         <ProductItem v-for="product in products" :key="product.name" :productInfo="product" @showDialog="showDialog" />
-        <ChoicesDialog v-if="itemSelected" @closeDialog="itemSelected = false" :productInfo="specProductInfo"/>
-        <Basket />
+        <ChoicesDialog v-if="itemSelected" @closeDialog="itemSelected = false" :productInfo="specProductInfo"
+            @send="addToBasket" />
+        <Basket :basketItems="basketItems" />
     </section>
 
 </template>
@@ -10,6 +11,7 @@
 import ProductItem from './ProductItem.vue'
 import ChoicesDialog from './ChoicesDialog.vue'
 import Basket from './Basket.vue'
+import { format } from 'path'
 export default {
     components: { ProductItem, ChoicesDialog, Basket },
 
@@ -21,23 +23,24 @@ export default {
                     description: "2 Subs 30cm nach Wahl",
                     choiceOf: {
                         meat: ["Chicken", "Pan", "Salat"],
-                        topping: ["cheese","ketchup"],
-                        },
+                        topping: ["cheese", "ketchup"],
+                    },
                     price: 17.99,
-                
+
                 },
                 {
                     name: "Chicken Terayaki Sub",
                     description: "mit würzigen Hähnchenbruststreifen in Teriyaki-Marinade",
                     choiceOf: {
                         meat: ["Chicken", "Pig", "Cow"],
-                        topping: ["mayo","alioli"],
-                        },
+                        topping: ["mayo", "alioli"],
+                    },
                     price: 9.99
                 },
             ],
             itemSelected: false,
             specProductInfo: {},
+            basketItems: []
 
 
         }
@@ -46,8 +49,20 @@ export default {
         showDialog(data) {
             this.itemSelected = true;
             this.specProductInfo = data;
+        },
+        addToBasket(data) {
+            let found = false;
+            for (let i = 0; i < this.basketItems.length; i++) {
+                const element = this.basketItems[i];
+                if (element.name == data.name) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                this.basketItems.push(data)
+            }
         }
-    },
+    }
 }
 </script>
 

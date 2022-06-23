@@ -2,15 +2,15 @@
 <div class="basket-container">
     <h4>Basket</h4>
     <div class="basket-content">
-        <span>1. enslaaala</span>
-        <span>1. enslaaala</span>
-        <span>1. enslaaala</span>
-        <span>1. enslaaala</span>
+        <span v-for="item in basketItems" :key="item.name"> {{item.name}}</span>
+        
     </div>
 </div>
 </template>
 <script>
-
+export default{
+    props:["basketItems"]
+}
 </script>
 
 <style scoped>
